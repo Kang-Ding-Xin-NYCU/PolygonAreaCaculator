@@ -10,10 +10,11 @@ void polygon::print(){
     std::queue<float> printx = x;
     std::queue<float> printy = y;
     for(int i = 0; i < x.size(); i++){
-        std::cout<<"("<< printx.front()<<","<<printy.front()<<")"<<"\n";
+        std::cout<<"("<< printx.front()<<","<<printy.front()<<")";
         printx.pop();
         printy.pop();
     }
+    std::cout<<"\n";
 }
 
 float polygon::area(){
