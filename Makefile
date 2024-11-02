@@ -19,4 +19,4 @@ test.o: test.cpp
 	g++ -c test.cpp
 
 clean:
-	rm *.o test *.so
+	rm -r __pycache__ test *.o *.so 

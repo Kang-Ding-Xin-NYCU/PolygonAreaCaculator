@@ -12,8 +12,8 @@ PYBIND11_MODULE(_polygon, m){
         .def("__getitem__", [](polygon &self, std::size_t i) {
             return self(i);
         })
-        .def("set_x", &polygon::set)
-        .def("get_x", &polygon::get)
+        .def("set", &polygon::set)
+        .def("get", &polygon::get)
         .def("print", &polygon::print)
         .def("area", &polygon::area)
         .def_property_readonly("size", &polygon::size);
