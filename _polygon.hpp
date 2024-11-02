@@ -7,24 +7,20 @@
 class polygon {
 public:
     polygon();
-    polygon(std::vector<double> in_x, std::vector<double> in_y);
+    polygon(std::vector<std::vector<double>> input);
     polygon(polygon const & other);
     ~polygon();
     polygon & operator=(polygon const & );
-    double const & x(std::size_t it) const;
-    double       & x(std::size_t it);
-    double const & y(std::size_t it) const;
-    double       & y(std::size_t it);
-    void                set_x(std::vector<double> in_x);
-    std::vector<double> get_x() const;
-    void                set_y(std::vector<double> in_y);
-    std::vector<double> get_y() const;
+    std::vector<double> const & operator() (std::size_t it) const;
+    std::vector<double>       & operator() (std::size_t it);
+    void                set(std::vector<std::vector<double>> input);
+    std::vector<std::vector<double>> get() const;
     void                print();
     double              area();
     size_t              size();
 
 private:
-    std::vector<double> datax, datay;
+    std::vector<std::vector<double>> data;
     std::size_t num;
 };
 

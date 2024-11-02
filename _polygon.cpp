@@ -5,90 +5,61 @@ polygon::polygon()
 
 }
 
-polygon::polygon(std::vector<double> in_x, std::vector<double> in_y)
+polygon::polygon(std::vector<std::vector<double>> input)
 {
-    datax = in_x;
-    datay = in_y;
-    num = datax.size();
+    data = input;
+    num = data.size();
 }
 
 polygon::polygon(polygon const & other)
 {
-    this->datax = other.get_x();
-    this->datay = other.get_y();
-    num = datax.size();
+    this->data = other.get();
+    num = data.size();
 }
 
 polygon::~polygon()
 {
-    datax.clear();
-    datay.clear();
+    data.clear();
 }
 
 polygon & polygon::operator=(polygon const & other){
-    for(size_t i = 0; i < datax.size(); ++i){
-        datax.push_back(other.x(i));
-        datay.push_back(other.y(i));
+    for(size_t i = 0; i < num; ++i){
+        data[i] = other(i);
     }
-    num = datax.size();
+    num = data.size();
     return *this;
 }
 
-double const & polygon::x(std::size_t t) const{
-    if(t > datax.size() - 1){
+std::vector<double> const & polygon::operator() (std::size_t t) const{
+    if(t > data.size() - 1){
         throw std::out_of_range("Line index out of range");
     }
-    return datax[t];
+    return data[t];
 }
 
-double & polygon::x(std::size_t t){
-    if(t > datax.size() - 1){
+std::vector<double> & polygon::operator() (std::size_t t){
+    if(t > data.size() - 1){
         throw std::out_of_range("Line index out of range");
     }
-    return datax[t];
+    return data[t];
 }
 
-double const & polygon::y(std::size_t t) const{
-    if(t > datay.size() - 1){
-        throw std::out_of_range("Line index out of range");
-    }
-    return datay[t];
-}
-
-double & polygon::y(std::size_t t){
-    if(t > datay.size() - 1){
-        throw std::out_of_range("Line index out of range");
-    }
-    return datay[t];
-}
-
-void polygon::set_x(std::vector<double> in_x)
+void polygon::set(std::vector<std::vector<double>> input)
 {
-    datax = in_x;
-    num = datax.size();
+    data = input;
+    num = data.size();
 }
 
-std::vector<double> polygon::get_x() const
+std::vector<std::vector<double>> polygon::get() const
 {
-    return datax;
-}
-
-void polygon::set_y(std::vector<double> in_y)
-{
-    datay = in_y;
-    num = datax.size();
-}
-
-std::vector<double> polygon::get_y() const
-{
-    return datay;
+    return data;
 }
 
 void polygon::print()
 {
-    for(size_t i = 0; i < datax.size(); ++i)
+    for(size_t i = 0; i < num; ++i)
     {
-        std::cout << "(" << datax[i] << "," << datay[i] << ")";
+        std::cout << "(" << data[i][0] << "," << data[i][1] << ")";
     }
     std::cout << "\n" << num << "\n";
 }
@@ -96,11 +67,9 @@ void polygon::print()
 double polygon::area()
 {
     double sum = 0;
-    std::vector<double> areax = datax;
-    std::vector<double> areay = datay;
-    for(size_t i = 0; i <= datax.size(); ++i)
+    for(size_t i = 0; i <= num; ++i)
     {
-        sum += datax[i] * datay[i + 1] - datax[i + 1] * datay[i];
+        sum += data[i % num][0] * data[(i + 1) % num][1] - data[(i + 1) % num][0] * data[i % num][1];
     }
     return sum/2;
 }
