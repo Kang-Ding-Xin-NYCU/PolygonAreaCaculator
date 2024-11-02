@@ -15,8 +15,5 @@ test: _polygon.o test.o
 _polygon.o: _polygon.cpp _polygon.hpp
 	g++ -c _polygon.cpp -o _polygon.o
 
-test.o: test.cpp
-	g++ -c test.cpp
-
 clean:
 	rm -r __pycache__ test *.o *.so 
