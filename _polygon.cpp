@@ -76,6 +76,6 @@ double polygon::area()
 
 size_t polygon::size()
 {
-    return num;
+    return int(num);
 }
 
