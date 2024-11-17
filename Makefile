@@ -7,10 +7,8 @@ default: $(TARGET)
 $(TARGET): bind.cpp _polygon.cpp _polygon.hpp
 	$(CXX) $(CXXFLAGS) _polygon.cpp bind.cpp -o $(TARGET)
 
-test: test
-
-test: _polygon.o test.o
-	g++ _polygon.o test.o -o test
+test: $(TARGET)
+	python -m pytest -v
 
 _polygon.o: _polygon.cpp _polygon.hpp
 	g++ -c _polygon.cpp -o _polygon.o
