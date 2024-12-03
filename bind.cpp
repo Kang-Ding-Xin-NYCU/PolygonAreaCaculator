@@ -7,14 +7,23 @@ PYBIND11_MODULE(_polygon, m){
         .def(pybind11::init<std::vector<std::vector<double>>>())
         .def(pybind11::init<polygon const &>())
         .def("__setitem__", [](polygon &self, std::size_t i, std::vector<double> val) {
+             if (i >= self.size()) {
+                throw std::out_of_range("Index out of range");
+            }
             self(i) = val;
+            self.calculate_area();
         })
         .def("__getitem__", [](polygon &self, std::size_t i) {
+            if (i >= self.size()) {
+                throw std::out_of_range("Index out of range");
+            }
             return self(i);
         })
-        .def("set", &polygon::set)
-        .def("get", &polygon::get)
-        .def("print", &polygon::print)
-        .def("area", &polygon::area)
+        .def("set_vertices", &polygon::set_vertices)
+        .def("get_vertices", &polygon::get_vertices)
+        .def("get_area", &polygon::get_area)
+        .def("print_vertices", &polygon::print_vertices)
+        .def("print_area", &polygon::print_area)
+        .def("calculate_area", &polygon::calculate_area)
         .def_property_readonly("size", &polygon::size);
 }
