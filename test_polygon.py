@@ -22,3 +22,14 @@ def test_islands():
     polygon_test.set_islands(island)
     assert (polygon_test.area() == 14.)
 
+def test_plot():
+    vertice = [[100, 100], [400, 100], [400, 400], [100, 400]] 
+    vertice1 = [[150, 150], [250, 150], [250, 250], [150, 250]] 
+    vertice2 = [[300, 300], [350, 300], [350, 350], [300, 350]] 
+    
+    polygon_test = polygon.polygon(vertice)
+    polygon_test.set_islands([vertice1, vertice2])
+    
+    savefile = "polygon.png"
+    polygon_test.plot(savefile)
+

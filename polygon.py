@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 
 class polygon:
+
     def __init__(self, vertice):
         self.polygon = _polygon.polygon(vertice)
     
@@ -32,6 +33,25 @@ class polygon:
     def area(self):
         return self.polygon.get_area()
     
+    def plot(self, filename):
+        img = np.zeros((500, 500, 3), dtype='uint8')
+        points = np.array(self.polygon.get_vertices(), dtype=np.int32)
+        points = points.reshape((-1, 1, 2))
+    
+        cv2.polylines(img, [points], True, (0, 0, 255), 5)
+    
+        if self.get_islands():
+            for island in self.get_islands():
+                island_points = np.array(island.get_vertices(), dtype=np.int32)
+                island_points = island_points.reshape((-1, 1, 2))
+                cv2.polylines(img, [island_points], True, (0, 255, 0), 5)
+
+        if not cv2.imwrite(filename, img):
+            print(f"Failed to save image: {filename}")
+        else:
+            print(f"Image saved to: {filename}")
+
+    '''
     def plot(self):
         img = np.zeros((300,300,3), dtype='uint8')
         points = np.array(self.polygon.get_vertices(), dtype=np.int32)
@@ -40,3 +60,4 @@ class polygon:
         cv2.imshow('polygon', img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+        '''
