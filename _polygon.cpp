@@ -2,7 +2,7 @@
 
 polygon::polygon()
 {
-
+    calculate_area();
 }
 
 polygon::polygon(std::vector<std::vector<double>> input)
@@ -31,6 +31,7 @@ polygon & polygon::operator=(polygon const & other)
         vertices.at(i) = other(i);
     }
     num = vertices.size();
+    calculate_area();
     return *this;
 }
 
@@ -38,7 +39,7 @@ std::vector<double> const & polygon::operator() (std::size_t t) const
 {
     if(t > vertices.size() - 1)
     {
-        throw std::out_of_range("Line index out of range");
+        throw std::out_of_range("out of range");
     }
     return vertices.at(t);
 }
@@ -46,7 +47,7 @@ std::vector<double> const & polygon::operator() (std::size_t t) const
 std::vector<double> & polygon::operator() (std::size_t t){
     if(t > vertices.size() - 1)
     {
-        throw std::out_of_range("Line index out of range");
+        throw std::out_of_range("out of range");
     }
     calculate_area();
     return vertices.at(t);
@@ -63,6 +64,18 @@ void polygon::set_vertices(std::vector<std::vector<double>> input)
 std::vector<std::vector<double>> polygon::get_vertices() const
 {
     return vertices;
+}
+
+void polygon::set_islands(std::vector<polygon> input)
+{
+    islands = input;
+    calculate_area();
+    return;
+}
+
+std::optional<std::vector<polygon>> polygon::get_islands() const
+{
+    return islands;
 }
 
 double polygon::get_area() const
@@ -93,7 +106,14 @@ void polygon::calculate_area()
     {
         sum += vertices[i % num][0] * vertices[(i + 1) % num][1] - vertices[(i + 1) % num][0] * vertices[i % num][1];
     }
-    area = sum/2;
+    area = std::abs(sum / 2);
+    if(islands.has_value())
+    {
+        for (const auto& island : islands.value())
+        {
+            area -= island.get_area();
+        }
+    }
     return;
 }
 
