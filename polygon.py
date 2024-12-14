@@ -20,7 +20,9 @@ class polygon:
         return self.polygon.get_vertices()
     
     def set_islands(self, island):
-        if isinstance(island[0], list):
+        if isinstance(island[0], polygon):
+            island = [i.polygon for i in island]
+        elif isinstance(island[0], list):
             island = [_polygon.polygon(pts) for pts in island]
         self.polygon.set_islands(island)
 
@@ -33,18 +35,25 @@ class polygon:
     def area(self):
         return self.polygon.get_area()
     
-    def plot(self, filename):
-        img = np.zeros((500, 500, 3), dtype='uint8')
-        points = np.array(self.polygon.get_vertices(), dtype=np.int32)
-        points = points.reshape((-1, 1, 2))
+    def plot(self, filename, width, height):
+        def flip(points, height):
+            flipped = points.copy()
+            for p in flipped:
+                p[1] = height - p[1]
+            return flipped
+        
+        def draw(img, polygon, color, height):
+            points = np.array(flip(polygon.get_vertices(), height), dtype=np.int32)
+            points = points.reshape((-1, 1, 2))
+            cv2.polylines(img, [points], True, color, 5)
+        
+            if polygon.get_islands():
+                for island in polygon.get_islands():
+                    draw(img, island, (0, 255, 0), height)
     
-        cv2.polylines(img, [points], True, (0, 0, 255), 5)
+        img = np.zeros((width, height, 3), dtype='uint8')
     
-        if self.get_islands():
-            for island in self.get_islands():
-                island_points = np.array(island.get_vertices(), dtype=np.int32)
-                island_points = island_points.reshape((-1, 1, 2))
-                cv2.polylines(img, [island_points], True, (0, 255, 0), 5)
+        draw(img, self.polygon, (0, 0, 255), height)  
 
         if not cv2.imwrite(filename, img):
             print(f"Failed to save image: {filename}")
