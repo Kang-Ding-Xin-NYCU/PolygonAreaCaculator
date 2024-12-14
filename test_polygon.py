@@ -3,10 +3,15 @@ import polygon
 
 def test_creation():
     vertice = [[1, 1], [4, 1], [4, 4], [1, 4]]
-    polygon_a = polygon.polygon(vertice)
-    assert (polygon_a.area() == 9.)
-    polygon_a[1] = [2, 1]
-    assert polygon_a.area() == 6.0
+    polygon_test = polygon.polygon(vertice)
+    assert (polygon_test.area() == 9.)
+
+def test_assign():
+    vertice = [[1, 1], [4, 1], [4, 4], [1, 4]]
+    polygon_test = polygon.polygon(vertice)
+    assert (polygon_test.area() == 9.)
+    polygon_test[1] = [2, 1]
+    assert polygon_test.area() == 6.0
 
 def test_islands():
     vertice = [[0, 0], [4, 0], [4, 4], [0, 4]]
