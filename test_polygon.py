@@ -2,8 +2,18 @@ import pytest
 import polygon
 
 def test_creation():
-    vertice = [[0, 0], [4, 0], [4, 4], [0, 4]]
+    vertice = [[1, 1], [4, 1], [4, 4], [1, 4]]
     polygon_a = polygon.polygon(vertice)
-    assert (polygon_a.area() == 16.)
-    polygon_a[1] = [2, 0]
-    assert polygon_a.area() == 12.0
+    assert (polygon_a.area() == 9.)
+    polygon_a[1] = [2, 1]
+    assert polygon_a.area() == 6.0
+
+def test_islands():
+    vertice = [[0, 0], [4, 0], [4, 4], [0, 4]]
+    vertice1 = [[0, 0], [1, 0], [1, 1], [0, 1]]
+    vertice2 = [[3, 3], [4, 3], [4, 4], [3, 4]]
+    island = [vertice1,vertice2]
+    polygon_test = polygon.polygon(vertice)
+    polygon_test.set_islands(island)
+    assert (polygon_test.area() == 14.)
+

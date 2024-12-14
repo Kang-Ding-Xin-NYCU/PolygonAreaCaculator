@@ -19,11 +19,13 @@ PYBIND11_MODULE(_polygon, m){
             }
             return self(i);
         })
-        .def("set_vertices", &polygon::set_vertices)
-        .def("get_vertices", &polygon::get_vertices)
-        .def("get_area", &polygon::get_area)
+        .def("set_vertices"  , &polygon::set_vertices)
+        .def("get_vertices"  , &polygon::get_vertices)
+        .def("set_islands"   , &polygon::set_islands)
+        .def("get_islands"   , &polygon::get_islands)
+        .def("get_area"      , &polygon::get_area)
         .def("print_vertices", &polygon::print_vertices)
-        .def("print_area", &polygon::print_area)
+        .def("print_area"    , &polygon::print_area)
         .def("calculate_area", &polygon::calculate_area)
         .def_property_readonly("size", &polygon::size);
 }

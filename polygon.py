@@ -12,9 +12,26 @@ class polygon:
     def __setitem__(self, index, value):
         self.polygon[index] = value
 
-    def input(self, vertice):
+    def set_vertices(self, vertice):
         self.polygon.set_vertices(vertice)
 
+    def get_vertices(self):
+        return self.polygon.get_vertices()
+    
+    def set_islands(self, island):
+        if isinstance(island[0], list):
+            island = [_polygon.polygon(pts) for pts in island]
+        self.polygon.set_islands(island)
+
+    def get_islands(self):
+        return self.polygon.get_islands()
+
+    def size(self):
+        return self.polygon.size
+    
+    def area(self):
+        return self.polygon.get_area()
+    
     def plot(self):
         img = np.zeros((300,300,3), dtype='uint8')
         points = np.array(self.polygon.get_vertices(), dtype=np.int32)
@@ -23,12 +40,3 @@ class polygon:
         cv2.imshow('polygon', img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-    def vertice(self):
-        return self.polygon.get_vertices()
-
-    def size(self):
-        return self.polygon.size
-    
-    def area(self):
-        return self.polygon.get_area()

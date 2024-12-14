@@ -15,12 +15,12 @@ public:
     std::vector<double> const &         operator() (std::size_t it) const;
     std::vector<double>       &         operator() (std::size_t it);
     void                                set_vertices(std::vector<std::vector<double>> input);
-    std::vector<std::vector<double>>    get_vertices() const;
+    std::vector<std::vector<double>>    get_vertices()    const;
     void                                set_islands(std::vector<polygon> other);
-    std::optional<std::vector<polygon>> get_islands()  const;
-    double                              get_area()     const;
-    void                                print_vertices();
-    void                                print_area();
+    std::optional<std::vector<polygon>> get_islands()     const;
+    double                              get_area()        const;
+    void                                print_vertices()  const;
+    void                                print_area()      const;
     void                                calculate_area();
     size_t                              size();
 

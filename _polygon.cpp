@@ -26,29 +26,22 @@ polygon::~polygon()
 
 polygon & polygon::operator=(polygon const & other)
 {
-    for(size_t i = 0; i < num; ++i)
+    if(this != &other)
     {
-        vertices.at(i) = other(i);
+        vertices = other.get_vertices();
+        num = vertices.size();
+        calculate_area();
     }
-    num = vertices.size();
-    calculate_area();
     return *this;
 }
 
 std::vector<double> const & polygon::operator() (std::size_t t) const
 {
-    if(t > vertices.size() - 1)
-    {
-        throw std::out_of_range("out of range");
-    }
     return vertices.at(t);
 }
 
-std::vector<double> & polygon::operator() (std::size_t t){
-    if(t > vertices.size() - 1)
-    {
-        throw std::out_of_range("out of range");
-    }
+std::vector<double> & polygon::operator() (std::size_t t)
+{
     calculate_area();
     return vertices.at(t);
 }
@@ -83,17 +76,32 @@ double polygon::get_area() const
     return area;
 }
 
-void polygon::print_vertices()
+void polygon::print_vertices() const
 {
     for(size_t i = 0; i < num; ++i)
     {
         std::cout << "(" << vertices[i][0] << "," << vertices[i][1] << ")";
     }
-    std::cout << "\n" << num << "\n";
+    std::cout << "\n" ;
+    if (islands.has_value())
+    {
+        std::cout << "Islands:\n";
+        size_t island_index = 1;
+        for (const auto& island : islands.value())
+        {
+            std::cout << "Island " << island_index++ << " Vertices:\n";
+            island.print_vertices();
+            std::cout << "\n";
+        }
+    }
+    else
+    {
+        std::cout << "No Islands.\n";
+    }
     return;
 }
 
-void polygon::print_area()
+void polygon::print_area() const
 {
     std::cout << area << "\n";
     return;
@@ -102,7 +110,7 @@ void polygon::print_area()
 void polygon::calculate_area()
 {
     double sum = 0;
-    for(size_t i = 0; i <= num; ++i)
+    for(size_t i = 0; i < num; ++i)
     {
         sum += vertices[i % num][0] * vertices[(i + 1) % num][1] - vertices[(i + 1) % num][0] * vertices[i % num][1];
     }
@@ -111,7 +119,8 @@ void polygon::calculate_area()
     {
         for (const auto& island : islands.value())
         {
-            area -= island.get_area();
+            double island_area = island.get_area();
+            area = area - island_area;
         }
     }
     return;
