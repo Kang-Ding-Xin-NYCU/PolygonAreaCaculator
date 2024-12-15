@@ -38,6 +38,8 @@ API Description
     class polygon:
         def set_vertices:
         def get_vertices:
+        def set_islands:
+        def get_islands:
         def area:
         def plot:
 
