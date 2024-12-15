@@ -34,10 +34,44 @@ API Description
 .. code:: python
 
     class polygon:
-        def get_vertices;
+        def set_vertices:
+        def get_vertices:
         def area:
         def plot:
 
+*******************************
+How to use it
+*******************************
+#. Clone the file::
+
+   $ git clone https://github.com/Kang-Ding-Xin-NYCU/PolygonAreaCaculator.git
+
+#. Install requirement::
+
+   $ pip install -r requirement.txt
+
+#. Compile file::
+
+   $ make
+
+#. Test file::
+
+   $ make test
+
+*******************************
+How to make file
+*******************************
+#. Compile file::
+
+   $ make
+
+#. Removing compiled files::
+
+   $ make clean
+
+#. Test file::
+
+   $ make test
 
 ****************************
  Engineering Infrastructure
