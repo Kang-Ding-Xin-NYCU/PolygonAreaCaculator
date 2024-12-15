@@ -14,4 +14,4 @@ _polygon.o: src/_polygon.cpp include/_polygon.hpp
 	g++ -c src/_polygon.cpp -I include -o _polygon.o
 
 clean:
-	rm -r __pycache__ test *.o *.so .pytest_cache *.png
+	rm -r __pycache__ test *.o *.so .pytest_cache

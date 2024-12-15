@@ -44,4 +44,5 @@ def test_plot():
     
     savefile = "polygon.png"
     polygon_test.plot(savefile, 500, 500)
+    assert (polygon_test.area() == 77500.)
 
