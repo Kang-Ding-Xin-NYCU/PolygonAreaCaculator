@@ -30,18 +30,19 @@ API Description
 
     class polygon{
         vector<double> vertices;
-        double area;
+        double get_area();
+        void print_area();
     };
 
 .. code:: python
 
     class polygon:
-        def set_vertices:
-        def get_vertices:
-        def set_islands:
-        def get_islands:
-        def area:
-        def plot:
+        def set_vertices():
+        def get_vertices():
+        def set_islands():
+        def get_islands():
+        def area():
+        def plot():
 
 *******************************
 How to use it
