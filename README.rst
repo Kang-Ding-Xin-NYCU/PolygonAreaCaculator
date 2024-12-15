@@ -1,4 +1,4 @@
-Polygon
+wsPolygon
 
 * input: input polygon coordinate
 * print: print polygon coordinate

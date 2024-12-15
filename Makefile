@@ -4,14 +4,14 @@ TARGET = _polygon.so
 
 default: $(TARGET)
 
-$(TARGET): bind.cpp _polygon.cpp _polygon.hpp
-	$(CXX) $(CXXFLAGS) _polygon.cpp bind.cpp -o $(TARGET)
+$(TARGET): src/bind.cpp src/_polygon.cpp include/_polygon.hpp
+	$(CXX) $(CXXFLAGS) src/_polygon.cpp src/bind.cpp -I include -o $(TARGET)
 
 test: $(TARGET)
 	python -m pytest -v
 
-_polygon.o: _polygon.cpp _polygon.hpp
-	g++ -c _polygon.cpp -o _polygon.o
+_polygon.o: src/_polygon.cpp include/_polygon.hpp
+	g++ -c src/_polygon.cpp -I include -o _polygon.o
 
 clean:
 	rm -r __pycache__ test *.o *.so .pytest_cache *.png
