@@ -9,7 +9,7 @@ polygon_test = polygon.polygon(vertice)
 #insert islands into polygon
 polygon_test.set_islands([vertice1, vertice2])
 #get polygon's area
-polygon_test.area()
+print(polygon_test.area())
 #set image file name and image size
 savefile = "polygon.png"
 polygon_test.plot(savefile, 500, 500)
