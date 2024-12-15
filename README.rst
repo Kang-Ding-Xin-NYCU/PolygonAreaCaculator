@@ -12,7 +12,8 @@ Project Info
 *******************************
 Project Info
 *******************************
-Provide a module which can easily use in calculating the area of any polygon by their coordinates.
+Provide a module which can easily use in calculating the area of any polygon by their coordinates
+
 *******************************
 System Architecture
 *******************************
