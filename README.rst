@@ -37,12 +37,12 @@ API Description
 .. code:: python
 
     class polygon:
-        def set_vertices():
+        def set_vertices(vertices):
         def get_vertices():
-        def set_islands():
+        def set_islands(islands):
         def get_islands():
         def area():
-        def plot():
+        def plot(filename, image_width, image_height):
 
 *******************************
 How to use it
