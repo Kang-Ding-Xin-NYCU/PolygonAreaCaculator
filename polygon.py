@@ -27,7 +27,10 @@ class polygon:
         self.polygon.set_islands(island)
 
     def get_islands(self):
-        return self.polygon.get_islands()
+        islands = self.polygon.get_islands()
+        if islands is None:
+            return []
+        return [polygon(island.get_vertices()) for island in islands]
 
     def size(self):
         return self.polygon.size
@@ -42,18 +45,21 @@ class polygon:
                 p[1] = height - p[1]
             return flipped
         
-        def draw(img, polygon, color, height):
-            points = np.array(flip(polygon.get_vertices(), height), dtype=np.int32)
+        def draw(img, polygon_obj, color, height, level=0):
+            print(f"Drawing level {level} polygon with vertices: {polygon_obj.get_vertices()} polygon with islands: {polygon_obj.get_islands()} ")
+            points = np.array(flip(polygon_obj.get_vertices(), height), dtype=np.int32)
             points = points.reshape((-1, 1, 2))
             cv2.polylines(img, [points], True, color, 5)
-        
-            if polygon.get_islands():
-                for island in polygon.get_islands():
-                    draw(img, island, (0, 255, 0), height)
+
+            islands = polygon_obj.get_islands()
+            print(f"islands name {islands}")
+            if islands:
+                for idx, island in enumerate(islands):
+                    print(f"Drawing island {idx + 1} islands name {islands} at level {level + 1} island name {island}")
+                    draw(img, island, (0, 255, 0), height, level+1)
     
         img = np.zeros((width, height, 3), dtype='uint8')
-    
-        draw(img, self.polygon, (0, 0, 255), height)  
+        draw(img, self, (0, 0, 255), height)  
 
         if not cv2.imwrite(filename, img):
             print(f"Failed to save image: {filename}")

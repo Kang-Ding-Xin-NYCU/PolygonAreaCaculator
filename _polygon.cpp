@@ -12,25 +12,35 @@ polygon::polygon(std::vector<std::vector<double>> input)
     calculate_area();
 }
 
-polygon::polygon(polygon const & other)
-{
-    this->vertices = other.get_vertices();
-    num = vertices.size();
-    calculate_area();
+polygon::polygon(const polygon& other) {
+    this->vertices = other.vertices;
+    this->area = other.area;
+    if (other.islands.has_value()) {
+        this->islands = std::make_optional<std::vector<polygon>>();
+        for (const auto& island : other.islands.value()) {
+            this->islands->emplace_back(island); // 深拷貝每個嵌套島嶼
+        }
+    }
 }
+
 
 polygon::~polygon()
 {
     vertices.clear();
 }
 
-polygon & polygon::operator=(polygon const & other)
-{
-    if(this != &other)
-    {
-        vertices = other.get_vertices();
-        num = vertices.size();
-        calculate_area();
+polygon& polygon::operator=(const polygon& other) {
+    if (this != &other) {
+        this->vertices = other.vertices;
+        this->area = other.area;
+        if (other.islands.has_value()) {
+            this->islands = std::make_optional<std::vector<polygon>>();
+            for (const auto& island : other.islands.value()) {
+                this->islands->emplace_back(island);
+            }
+        } else {
+            this->islands.reset();
+        }
     }
     return *this;
 }
@@ -61,14 +71,49 @@ std::vector<std::vector<double>> polygon::get_vertices() const
 
 void polygon::set_islands(std::vector<polygon> input)
 {
-    islands = input;
+    islands = std::make_optional<std::vector<polygon>>(input);
     calculate_area();
+    std::cout << "Set islands for polygon. Total islands: " << islands->size() << "\n";
+    for (const auto& island : islands.value())
+    {
+        std::cout << "Island vertices: ";
+        island.print_vertices();
+        if (island.get_islands().has_value())
+        {
+            std::cout << "Nested islands found.\n";
+            for (const auto& nested : island.get_islands().value())
+            {
+                std::cout << "Nested island vertices: ";
+                nested.print_vertices();
+            }
+        }
+    }
     return;
 }
 
 std::optional<std::vector<polygon>> polygon::get_islands() const
 {
-    return islands;
+    if (islands.has_value())
+    {
+        // Debug 信息
+        std::cout << "Get islands. Total islands: " << islands->size() << "\n";
+        for (const auto& island : islands.value())
+        {
+            std::cout << "Island vertices: ";
+            island.print_vertices();
+            if (island.get_islands().has_value())
+            {
+                std::cout << "Nested islands found.\n";
+                for (const auto& nested : island.get_islands().value())
+                {
+                    std::cout << "Nested island vertices: ";
+                    nested.print_vertices();
+                }
+            }
+        }
+        return islands;
+    }
+    return {};
 }
 
 double polygon::get_area() const

@@ -9,14 +9,14 @@ class polygon {
 public:
     polygon();
     polygon(std::vector<std::vector<double>> input);
-    polygon(polygon const & other);
+    polygon(const polygon& other);
     ~polygon();
-    polygon & operator=(polygon const & );
+    polygon & operator=(const polygon& other);
     std::vector<double> const &         operator() (std::size_t it) const;
     std::vector<double>       &         operator() (std::size_t it);
     void                                set_vertices(std::vector<std::vector<double>> input);
     std::vector<std::vector<double>>    get_vertices()    const;
-    void                                set_islands(std::vector<polygon> other);
+    void                                set_islands(std::vector<polygon> input);
     std::optional<std::vector<polygon>> get_islands()     const;
     double                              get_area()        const;
     void                                print_vertices()  const;

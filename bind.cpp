@@ -23,6 +23,9 @@ PYBIND11_MODULE(_polygon, m){
         .def("get_vertices"  , &polygon::get_vertices)
         .def("set_islands"   , &polygon::set_islands)
         .def("get_islands"   , &polygon::get_islands)
+        /*.def("get_islands", [](const polygon& self) -> std::optional<std::vector<polygon>> {
+            return self.get_islands();
+        }, pybind11::return_value_policy::reference)*/
         .def("get_area"      , &polygon::get_area)
         .def("print_vertices", &polygon::print_vertices)
         .def("print_area"    , &polygon::print_area)
