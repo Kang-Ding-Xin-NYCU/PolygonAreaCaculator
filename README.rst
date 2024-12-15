@@ -65,7 +65,7 @@ How to use it
    $ make
 
 *******************************
-How to make file
+Make commands
 *******************************
 #. Compile file::
 
