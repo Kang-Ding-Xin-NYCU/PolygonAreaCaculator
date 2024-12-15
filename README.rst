@@ -54,10 +54,6 @@ How to use it
 
    $ make
 
-#. Test file::
-
-   $ make test
-
 *******************************
 How to make file
 *******************************
