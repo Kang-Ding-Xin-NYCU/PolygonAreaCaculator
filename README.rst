@@ -8,6 +8,7 @@ Project Info
 **Project**: PolygonAreaCaculator
 
 **GitHub**: https://github.com/Kang-Ding-Xin-NYCU/PolygonAreaCaculator
+
 *******************************
 System Architecture
 *******************************
@@ -21,6 +22,7 @@ System Architecture
     - A picture of polygon
     - Area of polygon
     - A list of coordinates of the polygon
+
 *******************************
 API Description
 *******************************
