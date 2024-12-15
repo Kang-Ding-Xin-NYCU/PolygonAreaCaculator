@@ -1,17 +1,27 @@
 import pytest
 import polygon
 
-def test_creation():
+def test_creation_area_calculate():
     vertice = [[1, 1], [4, 1], [4, 4], [1, 4]]
     polygon_test = polygon.polygon(vertice)
     assert (polygon_test.area() == 9.)
 
-def test_assign():
+def test_assign_area_calculate():
     vertice = [[1, 1], [4, 1], [4, 4], [1, 4]]
     polygon_test = polygon.polygon(vertice)
     assert (polygon_test.area() == 9.)
     polygon_test[1] = [2, 1]
     assert polygon_test.area() == 6.0
+
+def test_area_calculate_1():
+    vertice = [[1, 1], [4, 1], [4, 2], [2, 2], [2, 3], [4, 3], [4, 4], [1, 4]]
+    polygon_test = polygon.polygon(vertice)
+    assert (polygon_test.area() == 7.)
+
+def test_area_calculate_2():
+    vertice = [[1, 1], [4, 1], [4, 2], [5, 2], [5, 3], [4, 3], [4, 4], [1, 4]]
+    polygon_test = polygon.polygon(vertice)
+    assert (polygon_test.area() == 10.)
 
 def test_islands():
     vertice = [[0, 0], [4, 0], [4, 4], [0, 4]]
