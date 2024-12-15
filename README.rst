@@ -10,6 +10,10 @@ Project Info
 **GitHub**: https://github.com/Kang-Ding-Xin-NYCU/PolygonAreaCaculator
 
 *******************************
+Project Info
+*******************************
+Provide a module which can easily use in calculating the area of any polygon by their coordinates.
+*******************************
 System Architecture
 *******************************
 **Input** : 
